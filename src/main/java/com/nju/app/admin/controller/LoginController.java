@@ -25,6 +25,9 @@ public class LoginController {
         return "home/login";
     }
 
+    @GetMapping("/register")
+    public String register() { return "home/register"; }
+
     @ResponseBody
     @RequestMapping("/web/login")
     public Result login(@RequestParam(value = "username") String username,

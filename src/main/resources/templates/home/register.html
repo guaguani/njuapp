@@ -22,34 +22,40 @@
                 <el-col :xs="8" :sm="9" :md="8" :lg="6" :xl="5">
                     <el-card class="box-card">
                         <div solt="header" class="header">
-                            <span class="item">登录</span>
+                            <span class="item">注册</span>
                         </div>
                         <div id="form">
                             <!-- 登录表单 -->
-                            <el-form :model="login" status-icon ref="login">
+                            <el-form :model="forget" status-icon ref="forget">
                                 <el-form-item prop="username"
                                               :rules="[{ required: true, message: '用户名不能为空'}]">
-                                    <el-input prefix-icon="el-icon-ump-yonghu" v-model="login.username"
+                                    <el-input prefix-icon="el-icon-ump-yonghu" v-model="forget.username"
                                               auto-complete="off"></el-input>
                                 </el-form-item>
-                                <el-form-item prop="password"
+                                <el-form-item prop="id_card"
+                                              :rules="[{ required: true, message: '身份证号不能为空'}]">
+                                    <el-input prefix-icon="el-icon-ump-yonghu" v-model="forget.id_card"
+                                              auto-complete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item prop="password1"
                                               :rules="[{ required: true, message: '密码不能为空'}]">
                                     <el-input prefix-icon="el-icon-ump-mima" type="password"
-                                              v-model="login.password" @keyup.enter.native="loginEnter('login')"
+                                              v-model="forget.password1"
+                                              auto-complete="off"></el-input>
+                                </el-form-item>
+                                <el-form-item prop="password2"
+                                              :rules="[{ required: true, message: '密码不能为空'}]">
+                                    <el-input prefix-icon="el-icon-ump-mima" type="password"
+                                              v-model="forget.password2" @keyup.enter.native="loginEnter('forget')"
                                               auto-complete="off"></el-input>
                                 </el-form-item>
                                 <el-form-item>
-                                    <el-radio class="radio" v-model="login.type" label="admin">管理员</el-radio>
-                                    <el-radio class="radio" v-model="login.type" label="teacher">教师</el-radio>
-                                </el-form-item>
-                                <el-form-item>
-                                    <el-button class="btn" type="primary" @click="submitForm('login')">登录
+                                    <el-button class="btn" type="primary" @click="submitForm('forget')">修改
                                     </el-button>
                                 </el-form-item>
                             </el-form>
                             <div>
-                                <p><a href="forget" class="tips">忘记密码</a></p>
-                                <p><a href="register" class="tips">新用户注册</a></p>
+                                <p><a href="login" class="tips">返回</a></p>
                             </div>
                         </div>
                     </el-card>
@@ -63,5 +69,5 @@
 <!--<script type="text/javascript" th:src="@{../../lib/vue/vuex.min.js}"></script>-->
 <script type="text/javascript" th:src="@{../../lib/element-ui/lib/index.js}"></script>
 <script type="text/javascript" th:src="@{../../lib/vue/vue-resource.js}"></script>
-<script type="text/javascript" th:src="@{../../admin/login/js/login.js}"></script>
+<script type="text/javascript" th:src="@{../../admin/login/js/forget.js}"></script>
 </html>
