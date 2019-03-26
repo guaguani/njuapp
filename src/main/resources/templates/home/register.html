@@ -26,31 +26,42 @@
                         </div>
                         <div id="form">
                             <!-- 登录表单 -->
-                            <el-form :model="forget" status-icon ref="forget">
+                            <el-form :model="register" status-icon ref="register">
                                 <el-form-item prop="username"
-                                              :rules="[{ required: true, message: '用户名不能为空'}]">
-                                    <el-input prefix-icon="el-icon-ump-yonghu" v-model="forget.username"
+                                              :rules="[{ required: true, message: '请输入用户名'}]">
+                                    <el-input prefix-icon="el-icon-ump-yonghu" v-model="register.username" placeholder="输入用户名"
                                               auto-complete="off"></el-input>
                                 </el-form-item>
-                                <el-form-item prop="id_card"
-                                              :rules="[{ required: true, message: '身份证号不能为空'}]">
-                                    <el-input prefix-icon="el-icon-ump-yonghu" v-model="forget.id_card"
+
+                                <el-form-item prop="e_mail"
+                                              :rules="[{ required: true, message: '请输入邮箱'}]">
+                                    <el-input prefix-icon="el-icon-ump-yonghu" v-model="register.email" placeholder="输入邮箱"
                                               auto-complete="off"></el-input>
                                 </el-form-item>
+
+                                <!--<el-form-item prop="password1"-->
+                                              <!--:rules="[{ required: true, message: '请输入密码'}]">-->
+                                    <!--<el-input prefix-icon="el-icon-ump-mima" type="password" placeholder="输入密码"-->
+                                              <!--v-model="forget.password1"-->
+                                              <!--auto-complete="off"></el-input>-->
+                                <!--</el-form-item>-->
+
                                 <el-form-item prop="password1"
-                                              :rules="[{ required: true, message: '密码不能为空'}]">
-                                    <el-input prefix-icon="el-icon-ump-mima" type="password"
-                                              v-model="forget.password1"
+                                              :rules="[{ required: true, message: '请输入密码'}]">
+                                    <el-input prefix-icon="el-icon-ump-mima" type="password" placeholder="输入密码"
+                                              v-model="register.password1"
                                               auto-complete="off"></el-input>
                                 </el-form-item>
+
+
                                 <el-form-item prop="password2"
-                                              :rules="[{ required: true, message: '密码不能为空'}]">
-                                    <el-input prefix-icon="el-icon-ump-mima" type="password"
-                                              v-model="forget.password2" @keyup.enter.native="loginEnter('forget')"
+                                              :rules="[{ required: true, message: '请输入密码'}]">
+                                    <el-input prefix-icon="el-icon-ump-mima" type="password" placeholder="再次输入密码"
+                                              v-model="register.password2" @keyup.enter.native="loginEnter('forget')"
                                               auto-complete="off"></el-input>
                                 </el-form-item>
                                 <el-form-item>
-                                    <el-button class="btn" type="primary" @click="submitForm('forget')">修改
+                                    <el-button class="btn" type="primary" @click="submitForm('forget')">注册
                                     </el-button>
                                 </el-form-item>
                             </el-form>

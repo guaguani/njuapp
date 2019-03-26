@@ -25,9 +25,6 @@ public class LoginController {
         return "home/login";
     }
 
-    @GetMapping("/register")
-    public String register() { return "home/register"; }
-
     @ResponseBody
     @RequestMapping("/web/login")
     public Result login(@RequestParam(value = "username") String username,
@@ -109,6 +106,32 @@ public class LoginController {
         Teacher teacher = teacherDao.findByTId(username);
 
         if (teacher.getId_card().equals(id_card)){
+            user.setPassword(password);
+            userDao.saveAndFlush(user);
+            return new Result(true, "更新数据成功");
+        }else {
+            return new Result(false, "发生未知错误");
+        }
+
+
+    }
+
+    @GetMapping("/register")
+    public String register() { return "home/register"; }
+
+    @ResponseBody
+    @RequestMapping("/register")
+    public Result register(@RequestParam(value = "username") String username,
+                         @RequestParam(value = "e_mail") String e_mail,
+                         @RequestParam(value = "password") String password,
+                        @RequestParam(value = "type") String type) {
+
+        User user = userDao.findByUsername(username);
+
+        //身份证
+        Teacher teacher = teacherDao.findByTId(username);
+
+        if (teacher.getId_card().equals(e_mail)){
             user.setPassword(password);
             userDao.saveAndFlush(user);
             return new Result(true, "更新数据成功");
