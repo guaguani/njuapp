@@ -2,12 +2,15 @@ package com.nju.app.admin.controller;
 
 import com.nju.app.dao.TeacherDao;
 import com.nju.app.dao.UserDao;
+import com.nju.app.dao.StudentDao;
 import com.nju.app.entities.Result;
+import com.nju.app.entities.Student;
 import com.nju.app.entities.Teacher;
 import com.nju.app.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -20,26 +23,34 @@ public class RegisterController {
     @Autowired
     TeacherDao teacherDao;
 
+    @Autowired
+    StudentDao studentDao;
+
     @ResponseBody
-    @RequestMapping("/register")
-    public Result register(@RequestParam(value = "username") String username,
-                           @RequestParam(value = "e_mail") String e_mail,
-                           @RequestParam(value = "password") String password,
-                           @RequestParam(value = "type") String type) {
+    @RequestMapping(value = "/wx/register", method = RequestMethod.POST)
+    public Result wxregister(@RequestParam(value = "s_id") String openid,
+                             @RequestParam(value = "s_name") String name,
+                             @RequestParam(value = "s_sex") String sex,
+                             @RequestParam(value = "s_idCard") String idCard,
+                             @RequestParam(value = "password") String password){
 
-        User user = userDao.findByUsername(username);
+        if(studentDao.findBySId(openid)==null){
+            Student student = new Student();
+            student.setsId(openid);
+            student.setsName(name);
+            student.setSex(sex);
+            student.setId_card(idCard);
+            studentDao.saveAndFlush(student);
 
-        //身份证
-        Teacher teacher = teacherDao.findByTId(username);
-
-        if (teacher.getId_card().equals(e_mail)){
+            User user = new User();
+            user.setUsername(idCard);
+            user.setType("student");
             user.setPassword(password);
-            userDao.saveAndFlush(user);
-            return new Result(true, "更新数据成功");
-        }else {
-            return new Result(false, "发生未知错误");
+            user.setOpenId(openid);
+            userDao.save(user);
+            return new Result(true, student.getId_card());
+        }else{
+            return new Result(false, "failed");
         }
-
-
     }
 }
